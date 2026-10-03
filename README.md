@@ -65,3 +65,48 @@ The ping was successful, confirming that the addressing, default gateways and ro
 ## Project file
 
 Open `two-subnet-routed-network.pkt` using Cisco Packet Tracer to view and test the network.
+
+## CLI Configuration Lab — 3 October 2026
+
+I built a second network with four PCs, two Cisco 2960 switches and one Cisco 2911 router. I configured the router and switches using CLI, and entered the PCs’ static IP settings through Desktop → IP Configuration.
+
+### IPv4 addressing
+
+All devices use subnet mask `255.255.255.0`.
+
+| Device | IPv4 address | Default gateway |
+| --- | --- | --- |
+| PC0 | 192.168.1.10 | 192.168.1.1 |
+| PC1 | 192.168.1.11 | 192.168.1.1 |
+| S1 management interface | 192.168.1.2 | 192.168.1.1 |
+| R1 GigabitEthernet0/0 | 192.168.1.1 | N/A |
+| PC2 | 192.168.2.10 | 192.168.2.1 |
+| PC3 | 192.168.2.11 | 192.168.2.1 |
+| S2 management interface | 192.168.2.2 | 192.168.2.1 |
+| R1 GigabitEthernet0/1 | 192.168.2.1 | N/A |
+
+### CLI configuration
+
+- Assigned hostnames R1, S1 and S2.
+- Configured IP addresses on both router interfaces.
+- Enabled router interfaces using `no shutdown`.
+- Configured switch management addresses on VLAN 1.
+- Set each switch’s default gateway.
+- Checked router interfaces using `show ip interface brief`.
+- Saved configurations using `copy running-config startup-config`.
+
+### Testing and troubleshooting
+
+PC0 successfully pinged PC1 within the same subnet.
+
+The initial ping from PC0 to PC3 failed because a PC’s default gateway was incorrect. I corrected the gateway and repeated the test. All four replies were received with 0% packet loss.
+
+### Screenshots
+
+![CLI lab topology](cli-lab-topology.png)
+
+![Successful cross-subnet ping](cli-lab-ping-test.png)
+
+### Project file
+
+Open `two-subnet-cli-lab.pkt` in Cisco Packet Tracer.
